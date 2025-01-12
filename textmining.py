@@ -106,7 +106,8 @@ async def create_image(text: Text):
     # ファイルを保存
     now = datetime.datetime.now()
     filename = 'textmining_' + now.strftime('%Y%m%d_%H%M%S') + '.png'
-    plt.savefig(filename)
+    # storageのパスを指定する。
+    plt.savefig("C:\\dev\\Python\\new_workspace\\storage\\" + filename)
     return filename
 
 if __name__ == "__main__":
