@@ -34,12 +34,12 @@ def mecab_tokenizer(text):
     replaced_text = re.sub(r'[@＠]\w+', '', replaced_text)  # メンションの除去
     replaced_text = re.sub(r'\d+\.*\d*', '', replaced_text) #数字を0にする
 
-    #（大和追加）MeCab.Tagger()
+    #（追加）MeCab.Tagger()
     # pipも必要（https://taketake2.com/Q4-4.html）
     mecab = MeCab.Tagger() 
     parsed_lines = mecab.parse(replaced_text).split("\n")[:-2]
 
-    #（大和追加）最初の段階で品詞の種類を絞り込み
+    #（追加）最初の段階で品詞の種類を絞り込み
     #parsed_lines = [s for s in parsed_lines if ('名詞' in s or '動詞' in s or '形容詞' in s ) and ('助動詞' not in s )]
 
     #単語を取得
@@ -48,7 +48,7 @@ def mecab_tokenizer(text):
     #品詞を取得（元のプログラムでは1を指定していたが、順番が変わったらしいので4をセット）
     pos = [l.split("\t")[4].split(",")[0] for l in parsed_lines]
 
-    # （大和修正）元ファイルだと上手く行かなかったので、少し修正
+    # （修正）元ファイルだと上手く行かなかったので、少し修正
     token_list = [t for t , p in zip(surfaces, pos) if ('名詞' in p or '動詞' in p or '形容詞' in p ) and ('助動詞' not in p ) ]
 
     #ひらがなのみの単語を除く
@@ -84,7 +84,7 @@ async def create_image(text: Text):
     #関数の実行
     words = mecab_tokenizer(text.text)
 
-    #（大和修正）大和のローカル環境に合わせる
+    #（修正）ローカル環境に合わせる
     # フォントの設定
     font_path=r"C:\Windows\Fonts\HGRPP1.TTC"
     #色の設定
